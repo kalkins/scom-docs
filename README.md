@@ -1,0 +1,1 @@
+# Documentation for SCOM, my homemade 8-bit computer
