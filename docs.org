@@ -1,0 +1,110 @@
+* Version 1
+** Instruction set
+*** Format
+
+Each instruction can be 1-4 bytes long. The first byte has this format:
+
+llccciii
+
+l is the length of the instruction, where 00 means that there is only one byte,
+and 11 means that there are four.
+
+c is the conditional flags. More on that later.
+
+i is the first part of the instruction.
+
+*** 1-byte instructions
+**** Format 00---iii
+***** 000
+****** NOP
+****** Do nothing
+***** 001
+****** HALT
+****** Stop the clock. The computer must be restarted manually
+***** 010
+****** SLEEP
+****** Stop execution until an external signal is triggered
+***** 011-111 Not used
+*** 2-byte instructions
+**** Format 01---iii xxxxyyyy
+     i is the instruction, x and y aze registers
+***** 000
+****** MOV
+****** Copy value from x to y
+***** 001
+****** CMP
+****** Compare the value in register x and y. Sets the compare flags
+***** 010-111 Not used
+*** 3-byte instructions
+**** Format 10---0ii iiiixxxx yyyyzzzz
+     i is the instruction, x, y and z are registers
+***** 0
+****** ADD
+****** z = x + y
+***** 1
+****** ADDS
+****** z = x + y
+****** Sets compare flags
+***** 10
+****** SUB
+****** z = x - y
+***** 11
+****** SUBS
+****** z = x - y
+****** Sets compare flags
+***** 100
+****** MULT
+****** z = x * y
+***** 101
+****** MULTS
+****** z = x * y
+****** Sets compare flags
+***** 110
+****** AND
+****** z = x & y
+***** 111
+****** ANDS
+****** z = x & y
+****** Sets compare flags
+***** 1000
+****** NAND
+****** z = !(x & y)
+***** 1001
+****** NANDS
+****** z = !(x & y)
+****** Sets compare flags
+***** 1010
+****** OR
+****** z = x | y
+***** 1011
+****** ORS
+****** z = x | y
+****** Sets compare flags
+***** 1100
+****** NOR
+****** z = !(x | y)
+***** 1101
+****** NORS
+****** z = !(x | y)
+****** Sets compare flags
+***** 1110-1111 Not used
+***** 10000
+****** STR
+****** Store the value at in register z in the address given by register x and y
+***** 10001
+****** LDR
+****** Load the value at the address given by register x and y into register z
+*** 4-byte instructions
+**** Format 11---0ii iiiixxxx aaaaaaaa aaaaaaaa
+     i is the instruction, x is a register and a is a memory address
+***** 0
+****** STR
+****** Store the value in register x into the memory at address a
+***** 1
+****** LDZ
+****** Load the value at address a into register x
+**** Format 11---10i iiiixxxx yyyyzzzz vvvvvvvv
+***** 0
+****** STR
+****** Store the value in register
+**** Format 11---11i iiiixxxx yyyyzzzz ccccvvvv
